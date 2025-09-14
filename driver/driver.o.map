@@ -1,0 +1,469 @@
+
+Discarded input sections
+
+ .group         0x00000000        0xc build/./serial.o
+ .group         0x00000000        0xc build/./serial.o
+ .group         0x00000000        0xc build/./serial.o
+ .debug_macro   0x00000000      0x886 build/./serial.o
+ .debug_macro   0x00000000       0x88 build/./serial.o
+ .debug_macro   0x00000000       0x16 build/./serial.o
+ .group         0x00000000        0xc build/./keyboard.o
+ .group         0x00000000        0xc build/./keyboard.o
+ .group         0x00000000        0xc build/./keyboard.o
+ .group         0x00000000        0xc build/./keyboard.o
+ .group         0x00000000        0xc build/./keyboard.o
+ .debug_macro   0x00000000      0x886 build/./keyboard.o
+ .debug_macro   0x00000000       0x88 build/./keyboard.o
+ .debug_macro   0x00000000       0x16 build/./keyboard.o
+ .debug_macro   0x00000000       0x22 build/./keyboard.o
+ .debug_macro   0x00000000       0x3b build/./keyboard.o
+ .group         0x00000000        0xc build/./vga.o
+ .group         0x00000000        0xc build/./vga.o
+ .group         0x00000000        0xc build/./vga.o
+ .group         0x00000000        0xc build/./vga.o
+ .debug_macro   0x00000000      0x886 build/./vga.o
+ .debug_macro   0x00000000       0x88 build/./vga.o
+ .debug_macro   0x00000000       0x16 build/./vga.o
+ .debug_macro   0x00000000       0x35 build/./vga.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD build/./pic.o
+LOAD build/./serial.o
+LOAD build/./keyboard.o
+LOAD build/./vga.o
+
+.note.gnu.build-id
+ *(.note.gnu.build-id)
+
+.interp
+ *(.interp)
+
+.hash
+ *(.hash)
+
+.gnu.hash
+ *(.gnu.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rel.text
+ *(.rel.text)
+
+.rel.fini
+ *(.rel.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+
+.rel.data.rel.ro
+ *(.rel.data.rel.ro)
+
+.rel.data
+ *(.rel.data)
+
+.rel.tdata
+ *(.rel.tdata)
+
+.rel.tbss
+ *(.rel.tbss)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rel.ifunc
+ *(.rel.ifunc)
+
+.rel.plt
+ *(.rel.plt)
+
+.relr.dyn
+ *(.relr.dyn)
+
+.init
+ *(SORT_NONE(.init))
+
+.plt
+ *(.plt)
+
+.plt.got
+ *(.plt.got)
+
+.plt.sec
+ *(.plt.sec)
+
+.text           0x00000000      0x573
+ *(.text .stub)
+ .text          0x00000000       0xf1 build/./pic.o
+                0x0000001f                pic_init
+                0x000000c1                pic_send_eoi
+ .text          0x000000f1      0x264 build/./serial.o
+                0x0000012d                serial_init
+                0x00000190                serial_putc
+                0x000001cc                serial_puts
+                0x000001f7                serial_getc
+ .text          0x00000355       0xe8 build/./keyboard.o
+                0x00000437                kbd_keycode_to_ascii
+ .text          0x0000043d      0x136 build/./vga.o
+                0x0000045c                vga_entry_color
+                0x00000471                vga_entry
+                0x00000494                vga_move_cursor_to
+                0x00000512                vga_putentry_at
+                0x00000569                vga_get_screen_buffer
+ *(.gnu.warning)
+
+.fini
+ *(SORT_NONE(.fini))
+
+.rodata         0x00000000      0x14c
+ *(.rodata)
+ .rodata        0x00000000      0x14c build/./keyboard.o
+
+.rodata1
+ *(.rodata1)
+
+.eh_frame_hdr
+ *(.eh_frame_hdr)
+
+.eh_frame
+ *(.eh_frame)
+
+.sframe
+ *(.sframe)
+
+.gcc_except_table
+ *(.gcc_except_table)
+
+.gnu_extab
+ *(.gnu_extab*)
+
+.exception_ranges
+ *(.exception_ranges)
+
+.note.build-id
+ *(.note.build-id)
+
+.note.GNU-stack
+ *(.note.GNU-stack)
+
+.note.gnu-property
+ *(.note.gnu-property)
+
+.note.ABI-tag
+ *(.note.ABI-tag)
+
+.note.package
+ *(.note.package)
+
+.note.dlopen
+ *(.note.dlopen)
+
+.note.netbsd.ident
+ *(.note.netbsd.ident)
+
+.note.openbsd.ident
+ *(.note.openbsd.ident)
+
+.eh_frame
+ *(.eh_frame)
+
+.sframe
+ *(.sframe)
+
+.gnu_extab
+ *(.gnu_extab)
+
+.gcc_except_table
+ *(.gcc_except_table)
+
+.exception_ranges
+ *(.exception_ranges)
+
+.tdata
+ *(.tdata)
+
+.tbss
+ *(.tbss)
+
+.jcr
+ *(.jcr)
+
+.dynamic
+ *(.dynamic)
+
+.got
+ *(.got)
+
+.got.plt
+ *(.got.plt)
+
+.data           0x00000000        0x0
+ *(.data)
+ .data          0x00000000        0x0 build/./pic.o
+ .data          0x00000000        0x0 build/./serial.o
+ .data          0x00000000        0x0 build/./keyboard.o
+ .data          0x00000000        0x0 build/./vga.o
+
+.data1
+ *(.data1)
+
+.bss            0x00000000      0x128
+ *(.bss)
+ .bss           0x00000000        0x0 build/./pic.o
+ .bss           0x00000000        0x1 build/./serial.o
+ *fill*         0x00000001       0x1f 
+ .bss           0x00000020      0x108 build/./keyboard.o
+ .bss           0x00000128        0x0 build/./vga.o
+
+.stab
+ *(.stab)
+
+.stabstr
+ *(.stabstr)
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment        0x00000000       0x4c
+ *(.comment)
+ .comment       0x00000000       0x13 build/./pic.o
+ .comment       0x00000013       0x13 build/./serial.o
+ .comment       0x00000026       0x13 build/./keyboard.o
+ .comment       0x00000039       0x13 build/./vga.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./pic.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./pic.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./pic.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./pic.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./pic.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./serial.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./serial.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./serial.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./serial.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./keyboard.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./keyboard.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./vga.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./vga.o
+
+.gnu.build.attributes
+ *(.gnu.build.attributes)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000       0x80
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x20 build/./pic.o
+ .debug_aranges
+                0x00000020       0x20 build/./serial.o
+ .debug_aranges
+                0x00000040       0x20 build/./keyboard.o
+ .debug_aranges
+                0x00000060       0x20 build/./vga.o
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x00000000      0xc7b
+ *(.debug_info)
+ .debug_info    0x00000000      0x114 build/./pic.o
+ .debug_info    0x00000114      0x3e5 build/./serial.o
+ .debug_info    0x000004f9      0x530 build/./keyboard.o
+ .debug_info    0x00000a29      0x252 build/./vga.o
+
+.debug_abbrev   0x00000000      0x45f
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0x81 build/./pic.o
+ .debug_abbrev  0x00000081      0x17b build/./serial.o
+ .debug_abbrev  0x000001fc      0x14e build/./keyboard.o
+ .debug_abbrev  0x0000034a      0x115 build/./vga.o
+
+.debug_line     0x00000000      0x828
+ *(.debug_line)
+ .debug_line    0x00000000      0x1b4 build/./pic.o
+ .debug_line    0x000001b4      0x285 build/./serial.o
+ .debug_line    0x00000439      0x22a build/./keyboard.o
+ .debug_line    0x00000663      0x1c5 build/./vga.o
+
+.debug_frame    0x00000000      0x3d4
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x74 build/./pic.o
+ .debug_frame   0x00000074      0x1d4 build/./serial.o
+ .debug_frame   0x00000248       0xb8 build/./keyboard.o
+ .debug_frame   0x00000300       0xd4 build/./vga.o
+
+.debug_str      0x00000000     0xdd6b
+ *(.debug_str)
+ .debug_str     0x00000000     0x3338 build/./pic.o
+ .debug_str     0x00003338     0x3a50 build/./serial.o
+ .debug_str     0x00006d88     0x3cee build/./keyboard.o
+ .debug_str     0x0000aa76     0x32f5 build/./vga.o
+
+.debug_loc
+ *(.debug_loc)
+
+.debug_macinfo
+ *(.debug_macinfo)
+
+.debug_weaknames
+ *(.debug_weaknames)
+
+.debug_funcnames
+ *(.debug_funcnames)
+
+.debug_typenames
+ *(.debug_typenames)
+
+.debug_varnames
+ *(.debug_varnames)
+
+.debug_pubtypes
+ *(.debug_pubtypes)
+
+.debug_ranges
+ *(.debug_ranges)
+
+.debug_addr
+ *(.debug_addr)
+
+.debug_line_str
+ *(.debug_line_str)
+
+.debug_loclists
+ *(.debug_loclists)
+
+.debug_macro    0x00000000      0x135
+ *(.debug_macro)
+ .debug_macro   0x00000000       0x3b build/./pic.o
+ .debug_macro   0x0000003b       0x53 build/./serial.o
+ .debug_macro   0x0000008e       0x53 build/./keyboard.o
+ .debug_macro   0x000000e1       0x54 build/./vga.o
+
+.debug_names
+ *(.debug_names)
+
+.debug_rnglists
+ *(.debug_rnglists)
+
+.debug_str_offsets
+ *(.debug_str_offsets)
+
+.debug_sup
+ *(.debug_sup)
+
+.gnu.attributes
+ *(.gnu.attributes)
+OUTPUT(driver.o elf32-i386)
+
+.debug_macro    0x00000000      0x886
+ .debug_macro   0x00000000      0x886 build/./pic.o
+
+.debug_macro    0x00000000       0x88
+ .debug_macro   0x00000000       0x88 build/./pic.o
+
+.debug_macro    0x00000000       0x16
+ .debug_macro   0x00000000       0x16 build/./pic.o
+
+.debug_macro    0x00000000       0x35
+ .debug_macro   0x00000000       0x35 build/./pic.o
+
+.debug_macro    0x00000000       0xa6
+ .debug_macro   0x00000000       0xa6 build/./pic.o
+
+.debug_macro    0x00000000       0x22
+ .debug_macro   0x00000000       0x22 build/./serial.o
+
+.debug_macro    0x00000000      0x1e3
+ .debug_macro   0x00000000      0x1e3 build/./serial.o
+
+.debug_macro    0x00000000       0x3b
+ .debug_macro   0x00000000       0x3b build/./serial.o
+
+.debug_macro    0x00000000       0x4c
+ .debug_macro   0x00000000       0x4c build/./serial.o
+
+.debug_macro    0x00000000      0x166
+ .debug_macro   0x00000000      0x166 build/./keyboard.o
+
+.debug_macro    0x00000000       0x52
+ .debug_macro   0x00000000       0x52 build/./keyboard.o
+
+.debug_macro    0x00000000       0x16
+ .debug_macro   0x00000000       0x16 build/./vga.o
+
+.debug_macro    0x00000000       0x3a
+ .debug_macro   0x00000000       0x3a build/./vga.o

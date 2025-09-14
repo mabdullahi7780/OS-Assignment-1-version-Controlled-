@@ -63,7 +63,11 @@
 ******************************************************************************/
 typedef struct {
 
-    /* Add the IDT entry fields here */
+    uint16_t offset_low;    // offset bits 0 to 15
+    uint16_t selector;      // code segment selector, 0x08 in our case
+    uint8_t  zero;          // reserved (always 0)
+    uint8_t  type_attr;     // type and attributes
+    uint16_t offset_high;   // offset bits 16 to 31
 
 } __attribute__((packed)) idt_entry_t;
 
@@ -100,5 +104,6 @@ typedef struct {
  * 
 *******************************************************************************/
 void load_idt (uint32_t);
-
+void create_idt_entry (idt_entry_t *entry, uint32_t offset, uint16_t selector, uint8_t gate_type_attr);
+void idt_init ();
 #endif // _IDT_H

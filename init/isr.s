@@ -1,93 +1,101 @@
 /*******************************************************************************
  * 
- * @file 	isr.h
- * @author  
- * @brief
+ * @file    isr.s
+ * @brief   Assembly stubs for CPU exceptions and interrupts
  * 
- * The stubs for the first 32 CPU exceptions and interrupts + irqs are declared
- *  here.
- * 
- * These are the standard CPU exceptions and interrupts that are defined by the
- *  x86 architecture. These ISRs will be linked externally via the assembly
- *  implementations.
- * 
- * Note that interrupts 0-31 are reserved for CPU exceptions and interrupts, 
- *  and are not used for user-defined interrupts.
- *  Beyond that, you can define your own interrupts in the range 32-255.
- * 
- * **Exception classification:**
- * - Faults: These exceptions can be handled by the operating system, allowing
- *  		 it to recover. Ret address of the instruction that caused the 
- * 			 fault is pushed onto the stack, instead of the next one.
- * - Traps:  A trap is an exception that is reported immediately following
- * 			 the execution of the trapping instruction. Ret address of the next
- * 			 instruction is pushed.
- * - Aborts: An abort is an exception that does not always report the precise
- * 			 location of the instruction that caused the abort. It is used for
- * 			 unrecoverable errors, such as hardware failures. No return address
- * 			 is pushed onto the stack.
- * 
-*******************************************************************************/
+ *******************************************************************************/
 
 KERNEL_CODE_SEGMENT = 0x08      /* Kernel code segment offset in the GDT */
 KERNEL_DATA_SEGMENT = 0x10      /* Kernel data segment offset in the GDT */
 
-.extern    interrupt_dispatch   /* Declare the external C handler for ISRs */
+.extern interrupt_dispatch   /* Declare the external C handler for ISRs */
 
-/* Interrupt handlers entry points will look something like this:
-    .globl isr0
-isr0:
-    pushl $0 # push dummy error code
-    pushl $0 # push interrupt number
-    jmp isr_common_handler # jump instead of a call
-
-
-     */
-
-
-/* We then call the macros to put in place handlers for all exceptions. Note
-    that the definitions for all 256 entries will be provided on the per
-    need basis. */
-
-// -- ADD THE ASSEMBLY ENTRY POINTS HERE FOR THE 32 EXCEPTIONS -- //
-
-// CPU exceptions
-
-
-// reserved interrupts from 22 to 31
-
-
-// The following are the IRQ definitions for the PIC generated interrupts.
-// master pic IRQs are from 0 to 7, and slave pic IRQs are from 8 to 15.
-
-
-// interrupt 0x80 is used for system calls, so we configure the entry for that.
-
-/**
- * @brief Common ISR handler that saves the state, calls the C handler, 
- *          and restores the state. This function is called by all ISRs to
- *          handle the interrupt. It saves the registers, sets up the segment
- *          registers, calls the C handler (interrupt_dispatch), and restores
- *          the state before returning.
- */
-
+/* ---------------------------------------------------------------------------
+ * Common ISR handler
+ * --------------------------------------------------------------------------- */
+.globl isr_common_handler
 .type isr_common_handler, @function
 isr_common_handler:
-    
-    /* 1.save1 the GP registers */
-    /* in the order: eax, ecx, edx, ebx, old esp, ebp, esi, edi */
-    
-    /* 2. save the data segment register */
+    pusha                # save eax, ecx, edx, ebx, esp, ebp, esi, edi
+    pushl %ds
+    pushl %es
+    pushl %fs
+    pushl %gs
 
-    /* 3. Call the C handler for the interrupt dispatching */   
+    mov $0x10, %ax       # load kernel data segment selector
+    mov %ax, %ds
+    mov %ax, %es
+    mov %ax, %fs
+    mov %ax, %gs
 
-    /* clean up the stack and restore the state */
+    pushl %esp           # push pointer to interrupt_context_t
+    call interrupt_dispatch
+    addl $4, %esp        # clean up param
 
-    /* restore the gp registers */
+    popl %gs
+    popl %fs
+    popl %es
+    popl %ds
+    popa
 
-    /* stack cleanup, must be restored to the state before the ISR. Done because
-        the iret instruction expects the previously automatically pushed fields:
-        ss, eflags, cs, ip. These are pushed automatically by the CPU when an
-        interrupt occurs. */
-    
-    /* Return from the interrupt, restoring the flags and segments */
+    addl $8, %esp        # pop error_code and int_no
+    iret
+
+
+/* ---------------------------------------------------------------------------
+ * Macros to define ISR stubs
+ * --------------------------------------------------------------------------- */
+
+/* ISR without error code (CPU does not push an error code) */
+.macro ISR_NOERR num
+    .globl isr\num
+isr\num:
+    pushl $0          /* dummy error code */
+    pushl $\num       /* int_no */
+    jmp isr_common_handler
+.endm
+
+/* ISR with error code (CPU already pushed error code) */
+.macro ISR_ERR num
+    .globl isr\num
+isr\num:
+    pushl $\num       /* int_no */
+    jmp isr_common_handler
+.endm
+
+
+/* ---------------------------------------------------------------------------
+ * Define ISRs 0..31 (CPU exceptions from Table 4)
+ * --------------------------------------------------------------------------- */
+ISR_NOERR 0    /* Divide Error */
+ISR_NOERR 1    /* Debug */
+ISR_NOERR 2    /* NMI Interrupt */
+ISR_NOERR 3    /* Breakpoint */
+ISR_NOERR 4    /* Overflow */
+ISR_NOERR 5    /* BOUND Range Exceeded */
+ISR_NOERR 6    /* Invalid Opcode */
+ISR_NOERR 7    /* Device Not Available */
+ISR_ERR   8    /* Double Fault */
+ISR_NOERR 9    /* Coprocessor Segment Overrun */
+ISR_ERR   10   /* Invalid TSS */
+ISR_ERR   11   /* Segment Not Present */
+ISR_ERR   12   /* Stack-Segment Fault */
+ISR_ERR   13   /* General Protection Fault */
+ISR_ERR   14   /* Page Fault */
+ISR_NOERR 15   /* Reserved */
+ISR_NOERR 16   /* x87 Floating-Point Exception */
+ISR_ERR   17   /* Alignment Check */
+ISR_NOERR 18   /* Machine Check */
+ISR_NOERR 19   /* SIMD Floating-Point Exception */
+ISR_NOERR 20   /* Virtualization Exception */
+ISR_ERR   21   /* Control Protection Exception */
+ISR_NOERR 22   /* Reserved */
+ISR_NOERR 23   /* Reserved */
+ISR_NOERR 24   /* Reserved */
+ISR_NOERR 25   /* Reserved */
+ISR_NOERR 26   /* Reserved */
+ISR_NOERR 27   /* Reserved */
+ISR_NOERR 28   /* Hypervisor Injection Exception */
+ISR_NOERR 29   /* VMM Communication Exception */
+ISR_ERR   30   /* Security Exception */
+ISR_NOERR 31   /* Reserved */

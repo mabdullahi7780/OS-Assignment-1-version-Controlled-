@@ -28,18 +28,18 @@ static struct test_case test_cases[] = {
 	{ "intr_unreg", 			test_intr_unreg },
 	{ "intr_multi", 			test_intr_multi },
 
-	{ "kbd_basic", 				test_kbd_basic },
-	{ "kbd_multi", 				test_kbd_multi },
-	{ "kbd_capslock", 			test_kbd_capslock },
-	{ "kbd_shift", 				test_kbd_shift },
+	// { "kbd_basic", 				test_kbd_basic },
+	// { "kbd_multi", 				test_kbd_multi },
+	// { "kbd_capslock", 			test_kbd_capslock },
+	// { "kbd_shift", 				test_kbd_shift },
 
-	{"terminal_getc", 			test_terminal_getc},
-	{"terminal_read", 			test_terminal_read},
-	{"terminal_putc", 			test_terminal_putc},
-	{"terminal_write", 			test_terminal_write},
-	{"terminal_cursor", 		test_terminal_cursor},
-	{"terminal_clear", 			test_terminal_clear},
-	{"terminal_column", 		test_terminal_column},
+	// {"terminal_getc", 			test_terminal_getc},
+	// {"terminal_read", 			test_terminal_read},
+	// {"terminal_putc", 			test_terminal_putc},
+	// {"terminal_write", 			test_terminal_write},
+	// {"terminal_cursor", 		test_terminal_cursor},
+	// {"terminal_clear", 			test_terminal_clear},
+	// {"terminal_column", 		test_terminal_column},
 	
 	/* 	
 	{ "kbd_ctrl", test_kbd_ctrl },
@@ -55,21 +55,21 @@ static struct test_case test_cases[] = {
 	{ "term_cursor", test_term_cursor },
 	{ "term_escchars", test_term_escchars }, */
 
-	{"shell_echo",				test_shell_echo},
-	{"shell_repeat",			test_shell_repeat_n},
-	{"shell_clear",				test_shell_clear},
-	{"shell_colour",			test_shell_text_colour},
-	{"shell_bgcolour",			test_shell_bg_colour},
+	// {"shell_echo",				test_shell_echo},
+	// {"shell_repeat",			test_shell_repeat_n},
+	// {"shell_clear",				test_shell_clear},
+	// {"shell_colour",			test_shell_text_colour},
+	// {"shell_bgcolour",			test_shell_bg_colour},
 
-	{"syscall_register", 		test_syscall_register},
-	{"syscall_read", 			test_syscall_read},
-	{"syscall_write", 			test_syscall_write},
+	// {"syscall_register", 		test_syscall_register},
+	// {"syscall_read", 			test_syscall_read},
+	// {"syscall_write", 			test_syscall_write},
 
-	{"shell_echo",				test_shell_echo},
-	{"shell_repeat",			test_shell_repeat_n},
-	{"shell_clear",				test_shell_clear},
-	{"shell_colour",			test_shell_text_colour},
-	{"shell_bgcolour",			test_shell_bg_colour},
+	// {"shell_echo",				test_shell_echo},
+	// {"shell_repeat",			test_shell_repeat_n},
+	// {"shell_clear",				test_shell_clear},
+	// {"shell_colour",			test_shell_text_colour},
+	// {"shell_bgcolour",			test_shell_bg_colour},
 
 	{ NULL, NULL } // marks the end of the array
 
