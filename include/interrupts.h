@@ -20,39 +20,10 @@
  */
 struct interrupt_context
 {
-    // /* Pushed by pusha */
-    // uint32_t edi;
-    // uint32_t esi;
-    // uint32_t ebp;
-    // uint32_t esp_dummy; // value of esp at pusha time (ignore)
-    // uint32_t ebx;
-    // uint32_t edx;
-    // uint32_t ecx;
-    // uint32_t eax;
-
-    // /* Pushed manually (segment registers) */
-    // uint32_t gs;
-    // uint32_t fs;
-    // uint32_t es;
-    // uint32_t ds;
-
-    // /* Pushed by our ISR stubs */
-    // uint32_t err_code;
-    // uint32_t int_no;
-
-    // /* Pushed automatically by the CPU */
-    // uint32_t eip;
-    // uint32_t cs;
-    // uint32_t eflags;
-    // /* If the interrupt came from user mode, CPU also pushes: */
-    // uint32_t useresp;
-    // uint32_t ss;
-
-    uint32_t gs, fs, es, ds;                         // pushed in isr_common_handler
-    uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax; // pusha
-    uint32_t err_code;                               // pushed first by ISR macros / CPU
-    uint32_t int_no;                                 // pushed second by ISR macros
-    uint32_t eip, cs, eflags, useresp, ss;           // pushed by CPU
+    uint32_t gs, fs, es, ds;                    // Segment registers
+    uint32_t edi, esi, ebp, esp, ebx, edx, ecx, eax;  // General purpose registers
+    uint32_t int_no, err_code;                  // Interrupt number and error code
+    uint32_t eip, cs, eflags, useresp, ss;
 };
 
 typedef struct interrupt_context interrupt_context_t;

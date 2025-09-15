@@ -5,9 +5,6 @@
  * 
  *******************************************************************************/
 
-KERNEL_CODE_SEGMENT = 0x08      /* Kernel code segment offset in the GDT */
-KERNEL_DATA_SEGMENT = 0x10      /* Kernel data segment offset in the GDT */
-
 .extern interrupt_dispatch   /* Declare the external C handler for ISRs */
 
 /* ---------------------------------------------------------------------------
@@ -16,29 +13,40 @@ KERNEL_DATA_SEGMENT = 0x10      /* Kernel data segment offset in the GDT */
 .globl isr_common_handler
 .type isr_common_handler, @function
 isr_common_handler:
-    pusha                # save eax, ecx, edx, ebx, esp, ebp, esi, edi
-    pushl %ds
-    pushl %es
-    pushl %fs
-    pushl %gs
+    /* Save all general-purpose registers */
+    pusha
+    
+    /* Save segment registers in the correct order to match interrupt_context_t */
+    push %gs
+    push %fs
+    push %es  
+    push %ds
 
-    mov $0x10, %ax       # load kernel data segment selector
+    /* Load kernel data segments */
+    mov $0x10, %ax
     mov %ax, %ds
     mov %ax, %es
     mov %ax, %fs
     mov %ax, %gs
 
-    pushl %esp           # push pointer to interrupt_context_t
+    /* Call the C interrupt dispatcher with pointer to context */
+    push %esp
     call interrupt_dispatch
-    addl $4, %esp        # clean up param
+    add $4, %esp
 
-    popl %gs
-    popl %fs
-    popl %es
-    popl %ds
+    /* Restore segment registers in reverse order */
+    pop %ds
+    pop %es
+    pop %fs
+    pop %gs
+    
+    /* Restore general-purpose registers */
     popa
-
-    addl $8, %esp        # pop error_code and int_no
+    
+    /* Clean up error code and interrupt number (pushed by ISR stub) */
+    add $8, %esp
+    
+    /* Return from interrupt */
     iret
 
 
@@ -50,8 +58,9 @@ isr_common_handler:
 .macro ISR_NOERR num
     .globl isr\num
 isr\num:
-    pushl $0          /* dummy error code */
-    pushl $\num       /* int_no */
+    cli                  /* Disable interrupts */
+    push $0              /* Push dummy error code (0 instead of -1) */
+    push $\num           /* Push interrupt number */
     jmp isr_common_handler
 .endm
 
@@ -59,13 +68,14 @@ isr\num:
 .macro ISR_ERR num
     .globl isr\num
 isr\num:
-    pushl $\num       /* int_no */
+    cli                  /* Disable interrupts */
+    push $\num           /* Push interrupt number */
     jmp isr_common_handler
 .endm
 
 
 /* ---------------------------------------------------------------------------
- * Define ISRs 0..31 (CPU exceptions from Table 4)
+ * Define ISRs 0..31 (CPU exceptions)
  * --------------------------------------------------------------------------- */
 ISR_NOERR 0    /* Divide Error */
 ISR_NOERR 1    /* Debug */

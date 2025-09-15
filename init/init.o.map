@@ -3,8 +3,13 @@ Discarded input sections
 
  .group         0x00000000        0xc build/./interrupts.o
  .group         0x00000000        0xc build/./interrupts.o
+ .group         0x00000000        0xc build/./interrupts.o
  .debug_macro   0x00000000      0x886 build/./interrupts.o
  .debug_macro   0x00000000       0x88 build/./interrupts.o
+ .debug_macro   0x00000000       0x16 build/./interrupts.o
+ .group         0x00000000        0xc build/./idt.o
+ .group         0x00000000        0xc build/./idt.o
+ .group         0x00000000        0xc build/./idt.o
  .group         0x00000000        0xc build/./idt.o
  .group         0x00000000        0xc build/./idt.o
  .group         0x00000000        0xc build/./idt.o
@@ -12,7 +17,12 @@ Discarded input sections
  .debug_macro   0x00000000      0x886 build/./idt.o
  .debug_macro   0x00000000       0x88 build/./idt.o
  .debug_macro   0x00000000       0x16 build/./idt.o
+ .debug_macro   0x00000000       0x35 build/./idt.o
  .debug_macro   0x00000000       0x16 build/./idt.o
+ .debug_macro   0x00000000       0x22 build/./idt.o
+ .debug_macro   0x00000000       0x10 build/./idt.o
+ .group         0x00000000        0xc build/./kmain.o
+ .group         0x00000000        0xc build/./kmain.o
  .group         0x00000000        0xc build/./kmain.o
  .group         0x00000000        0xc build/./kmain.o
  .group         0x00000000        0xc build/./kmain.o
@@ -20,7 +30,9 @@ Discarded input sections
  .debug_macro   0x00000000      0x886 build/./kmain.o
  .debug_macro   0x00000000       0x16 build/./kmain.o
  .debug_macro   0x00000000       0x88 build/./kmain.o
+ .debug_macro   0x00000000       0x22 build/./kmain.o
  .debug_macro   0x00000000       0x16 build/./kmain.o
+ .debug_macro   0x00000000       0x4c build/./kmain.o
 
 Memory Configuration
 
@@ -120,68 +132,67 @@ LOAD build/./isr.o
 .plt.sec
  *(.plt.sec)
 
-.text           0x00000000      0x7e7
+.text           0x00000000      0x485
  *(.text .stub)
  .text          0x00000000      0x121 build/./gdt.o
                 0x00000000                create_gdt_entry
                 0x0000007d                gdt_init_flat_protected
                 0x00000117                get_gdt_ptr
- .text          0x00000121      0x179 build/./interrupts.o
+ .text          0x00000121       0xf1 build/./interrupts.o
                 0x00000128                interrupt_dispatch
-                0x00000200                register_interrupt_handler
-                0x0000021d                unregister_interrupt_handler
-                0x0000023b                get_interrupt_handler
-                0x00000254                setup_x86_interrupts
- .text          0x0000029a      0x3d8 build/./idt.o
-                0x0000029a                create_idt_entry
-                0x000002ee                idt_init
- .text          0x00000672       0x4b build/./kmain.o
-                0x00000672                kmain
- .text          0x000006bd       0x25 build/./load_descriptors.o
-                0x000006bd                load_gdt
-                0x000006da                load_idt
- .text          0x000006e2      0x105 build/./isr.o
-                0x000006e2                isr_common_handler
-                0x00000709                isr0
-                0x0000070f                isr1
-                0x00000715                isr2
-                0x0000071b                isr3
-                0x00000721                isr4
-                0x00000727                isr5
-                0x0000072d                isr6
-                0x00000733                isr7
-                0x00000739                isr8
-                0x0000073d                isr9
-                0x00000743                isr10
-                0x00000747                isr11
-                0x0000074b                isr12
-                0x0000074f                isr13
-                0x00000753                isr14
-                0x00000757                isr15
-                0x0000075d                isr16
-                0x00000766                isr17
-                0x0000076d                isr18
-                0x00000776                isr19
-                0x0000077f                isr20
-                0x00000788                isr21
-                0x0000078f                isr22
-                0x00000798                isr23
-                0x000007a1                isr24
-                0x000007aa                isr25
-                0x000007b3                isr26
-                0x000007bc                isr27
-                0x000007c5                isr28
-                0x000007ce                isr29
-                0x000007d7                isr30
-                0x000007de                isr31
+                0x00000178                register_interrupt_handler
+                0x00000195                unregister_interrupt_handler
+                0x000001b3                get_interrupt_handler
+                0x000001cc                setup_x86_interrupts
+ .text          0x00000212       0xd3 build/./idt.o
+                0x00000212                create_idt_entry
+                0x00000266                idt_init
+ .text          0x000002e5       0x50 build/./kmain.o
+                0x000002e5                kmain
+ .text          0x00000335       0x25 build/./load_descriptors.o
+                0x00000335                load_gdt
+                0x00000352                load_idt
+ .text          0x0000035a      0x12b build/./isr.o
+                0x0000035a                isr_common_handler
+                0x00000381                isr0
+                0x00000388                isr1
+                0x0000038f                isr2
+                0x00000396                isr3
+                0x0000039d                isr4
+                0x000003a4                isr5
+                0x000003ab                isr6
+                0x000003b2                isr7
+                0x000003b9                isr8
+                0x000003be                isr9
+                0x000003c5                isr10
+                0x000003ca                isr11
+                0x000003cf                isr12
+                0x000003d4                isr13
+                0x000003d9                isr14
+                0x000003e1                isr15
+                0x000003eb                isr16
+                0x000003f5                isr17
+                0x000003fd                isr18
+                0x00000407                isr19
+                0x00000411                isr20
+                0x0000041b                isr21
+                0x00000423                isr22
+                0x0000042d                isr23
+                0x00000437                isr24
+                0x00000441                isr25
+                0x0000044b                isr26
+                0x00000455                isr27
+                0x0000045f                isr28
+                0x00000469                isr29
+                0x00000473                isr30
+                0x0000047b                isr31
  *(.gnu.warning)
 
 .fini
  *(SORT_NONE(.fini))
 
-.rodata         0x00000000       0xe3
+.rodata
  *(.rodata)
- .rodata        0x00000000       0xe3 build/./interrupts.o
 
 .rodata1
  *(.rodata1)
@@ -261,14 +272,15 @@ LOAD build/./isr.o
 .got.plt
  *(.got.plt)
 
-.data           0x00000000        0x0
+.data           0x00000000       0x80
  *(.data)
  .data          0x00000000        0x0 build/./gdt.o
  .data          0x00000000        0x0 build/./interrupts.o
- .data          0x00000000        0x0 build/./idt.o
- .data          0x00000000        0x0 build/./kmain.o
- .data          0x00000000        0x0 build/./load_descriptors.o
- .data          0x00000000        0x0 build/./isr.o
+ .data          0x00000000       0x80 build/./idt.o
+                0x00000000                isr_table
+ .data          0x00000080        0x0 build/./kmain.o
+ .data          0x00000080        0x0 build/./load_descriptors.o
+ .data          0x00000080        0x0 build/./isr.o
 
 .data1
  *(.data1)
@@ -336,7 +348,10 @@ LOAD build/./isr.o
  .group         0x00000000        0xc build/./interrupts.o
 
 .group          0x00000000        0xc
- .group         0x00000000        0xc build/./idt.o
+ .group         0x00000000        0xc build/./interrupts.o
+
+.group          0x00000000        0xc
+ .group         0x00000000        0xc build/./interrupts.o
 
 .group          0x00000000        0xc
  .group         0x00000000        0xc build/./idt.o
@@ -380,32 +395,32 @@ LOAD build/./isr.o
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x977
+.debug_info     0x00000000      0x99a
  *(.debug_info)
  .debug_info    0x00000000      0x1eb build/./gdt.o
- .debug_info    0x000001eb      0x34a build/./interrupts.o
- .debug_info    0x00000535      0x2ee build/./idt.o
- .debug_info    0x00000823      0x108 build/./kmain.o
- .debug_info    0x0000092b       0x26 build/./load_descriptors.o
- .debug_info    0x00000951       0x26 build/./isr.o
+ .debug_info    0x000001eb      0x319 build/./interrupts.o
+ .debug_info    0x00000504      0x33a build/./idt.o
+ .debug_info    0x0000083e      0x110 build/./kmain.o
+ .debug_info    0x0000094e       0x26 build/./load_descriptors.o
+ .debug_info    0x00000974       0x26 build/./isr.o
 
-.debug_abbrev   0x00000000      0x4b3
+.debug_abbrev   0x00000000      0x4b5
  *(.debug_abbrev)
  .debug_abbrev  0x00000000       0xfc build/./gdt.o
- .debug_abbrev  0x000000fc      0x18f build/./interrupts.o
- .debug_abbrev  0x0000028b      0x12d build/./idt.o
- .debug_abbrev  0x000003b8       0xd3 build/./kmain.o
- .debug_abbrev  0x0000048b       0x14 build/./load_descriptors.o
- .debug_abbrev  0x0000049f       0x14 build/./isr.o
+ .debug_abbrev  0x000000fc      0x16c build/./interrupts.o
+ .debug_abbrev  0x00000268      0x152 build/./idt.o
+ .debug_abbrev  0x000003ba       0xd3 build/./kmain.o
+ .debug_abbrev  0x0000048d       0x14 build/./load_descriptors.o
+ .debug_abbrev  0x000004a1       0x14 build/./isr.o
 
-.debug_line     0x00000000      0xa04
+.debug_line     0x00000000      0xbc4
  *(.debug_line)
  .debug_line    0x00000000      0x1dc build/./gdt.o
- .debug_line    0x000001dc      0x310 build/./interrupts.o
- .debug_line    0x000004ec      0x28f build/./idt.o
- .debug_line    0x0000077b      0x1d7 build/./kmain.o
- .debug_line    0x00000952       0x4b build/./load_descriptors.o
- .debug_line    0x0000099d       0x67 build/./isr.o
+ .debug_line    0x000001dc      0x400 build/./interrupts.o
+ .debug_line    0x000005dc      0x2eb build/./idt.o
+ .debug_line    0x000008c7      0x24b build/./kmain.o
+ .debug_line    0x00000b12       0x4b build/./load_descriptors.o
+ .debug_line    0x00000b5d       0x67 build/./isr.o
 
 .debug_frame    0x00000000      0x210
  *(.debug_frame)
@@ -414,14 +429,14 @@ LOAD build/./isr.o
  .debug_frame   0x00000148       0x54 build/./idt.o
  .debug_frame   0x0000019c       0x74 build/./kmain.o
 
-.debug_str      0x00000000     0xceec
+.debug_str      0x00000000     0xd3e6
  *(.debug_str)
  .debug_str     0x00000000     0x33d0 build/./gdt.o
- .debug_str     0x000033d0     0x35e8 build/./interrupts.o
- .debug_str     0x000069b8     0x329c build/./idt.o
- .debug_str     0x00009c54     0x31b1 build/./kmain.o
- .debug_str     0x0000ce05       0x7a build/./load_descriptors.o
- .debug_str     0x0000ce7f       0x6d build/./isr.o
+ .debug_str     0x000033d0     0x3722 build/./interrupts.o
+ .debug_str     0x00006af2     0x33b2 build/./idt.o
+ .debug_str     0x00009ea4     0x345b build/./kmain.o
+ .debug_str     0x0000d2ff       0x7a build/./load_descriptors.o
+ .debug_str     0x0000d379       0x6d build/./isr.o
 
 .debug_loc
  *(.debug_loc)
@@ -456,12 +471,12 @@ LOAD build/./isr.o
 .debug_loclists
  *(.debug_loclists)
 
-.debug_macro    0x00000000      0x193
+.debug_macro    0x00000000      0x1f4
  *(.debug_macro)
  .debug_macro   0x00000000       0x9c build/./gdt.o
- .debug_macro   0x0000009c       0x51 build/./interrupts.o
- .debug_macro   0x000000ed       0x54 build/./idt.o
- .debug_macro   0x00000141       0x52 build/./kmain.o
+ .debug_macro   0x0000009c       0x82 build/./interrupts.o
+ .debug_macro   0x0000011e       0x6c build/./idt.o
+ .debug_macro   0x0000018a       0x6a build/./kmain.o
 
 .debug_names
  *(.debug_names)
@@ -494,8 +509,8 @@ OUTPUT(init.o elf32-i386)
 .debug_macro    0x00000000       0x16
  .debug_macro   0x00000000       0x16 build/./interrupts.o
 
-.debug_macro    0x00000000       0x3b
- .debug_macro   0x00000000       0x3b build/./interrupts.o
+.debug_macro    0x00000000       0x35
+ .debug_macro   0x00000000       0x35 build/./interrupts.o
 
 .debug_macro    0x00000000       0x4c
  .debug_macro   0x00000000       0x4c build/./interrupts.o
@@ -506,14 +521,17 @@ OUTPUT(init.o elf32-i386)
 .debug_macro    0x00000000       0xa6
  .debug_macro   0x00000000       0xa6 build/./interrupts.o
 
+.debug_macro    0x00000000       0x22
+ .debug_macro   0x00000000       0x22 build/./interrupts.o
+
+.debug_macro    0x00000000       0x10
+ .debug_macro   0x00000000       0x10 build/./interrupts.o
+
 .debug_macro    0x00000000       0x40
  .debug_macro   0x00000000       0x40 build/./idt.o
 
-.debug_macro    0x00000000       0x35
- .debug_macro   0x00000000       0x35 build/./idt.o
-
-.debug_macro    0x00000000       0x22
- .debug_macro   0x00000000       0x22 build/./kmain.o
-
 .debug_macro    0x00000000       0x88
  .debug_macro   0x00000000       0x88 build/./kmain.o
+
+.debug_macro    0x00000000       0x3b
+ .debug_macro   0x00000000       0x3b build/./kmain.o
